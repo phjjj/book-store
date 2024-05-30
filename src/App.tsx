@@ -6,14 +6,40 @@ import { ThemeName, dark, getTheme, light } from "./style/theme";
 import ThemeSwitcher from "./components/header/ThemeSwitcher";
 import { useContext, useState } from "react";
 import { BookStoreThemeContextProvider, ThemeContext } from "./context/themeContext";
-
-function App() {
-  return (
-    <BookStoreThemeContextProvider>
-      <ThemeSwitcher />
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import Error from "./components/common/Error";
+import Signup from "./pages/Signup";
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: (
       <Layout>
         <Home />
       </Layout>
+    ),
+    errorElement: <Error />,
+  },
+  {
+    path: "/books",
+    element: (
+      <Layout>
+        <div>도서 목록</div>
+      </Layout>
+    ),
+  },
+  {
+    path: "/signup",
+    element: (
+      <Layout>
+        <Signup />
+      </Layout>
+    ),
+  },
+]);
+function App() {
+  return (
+    <BookStoreThemeContextProvider>
+      <RouterProvider router={router} />
     </BookStoreThemeContextProvider>
   );
 }
