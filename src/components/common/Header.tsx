@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { Category } from "../../models/category.model";
 import { fetchCategory } from "../../api/category.api";
 import { useCategory } from "../../hooks/useCategory";
-import { useAuthStore } from "../../store/auth.store";
+import { useAuthStore } from "../../store/authStore";
 
 const Header = () => {
   const { category } = useCategory();

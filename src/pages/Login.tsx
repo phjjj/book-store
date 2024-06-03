@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import { login, signup } from "../api/auth.api";
 import { useAlert } from "../hooks/useAlert";
 import { SignupStyle } from "./Signup";
-import { useAuthStore } from "../store/auth.store";
+import { useAuthStore } from "../store/authStore";
 export interface SignupProps {
   email: string;
   password: string;

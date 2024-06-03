@@ -37,3 +37,21 @@ export const fetchBook = async (bookId: string) => {
     return null;
   }
 };
+
+export const likeBook = async (bookId: number) => {
+  try {
+    const response = await httpclient.post<BookDetail>(`/likes/${bookId}`);
+    return response.data;
+  } catch (error) {
+    return null;
+  }
+};
+
+export const unlikeBook = async (bookId: number) => {
+  try {
+    const response = await httpclient.delete<BookDetail>(`/likes/${bookId}`);
+    return response.data;
+  } catch (error) {
+    return null;
+  }
+};
