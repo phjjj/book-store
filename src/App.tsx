@@ -9,6 +9,10 @@ import { BookStoreThemeContextProvider, ThemeContext } from "./context/themeCont
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Error from "./components/common/Error";
 import Signup from "./pages/Signup";
+import ResetPassword from "./pages/ResetPassword";
+import Login from "./pages/Login";
+import Books from "./pages/Books";
+import BookDetail from "./pages/BookDetail";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -23,7 +27,7 @@ const router = createBrowserRouter([
     path: "/books",
     element: (
       <Layout>
-        <div>도서 목록</div>
+        <Books />
       </Layout>
     ),
   },
@@ -32,6 +36,30 @@ const router = createBrowserRouter([
     element: (
       <Layout>
         <Signup />
+      </Layout>
+    ),
+  },
+  {
+    path: "/reset",
+    element: (
+      <Layout>
+        <ResetPassword />
+      </Layout>
+    ),
+  },
+  {
+    path: "/login",
+    element: (
+      <Layout>
+        <Login />
+      </Layout>
+    ),
+  },
+  {
+    path: "/book/:bookId",
+    element: (
+      <Layout>
+        <BookDetail />
       </Layout>
     ),
   },

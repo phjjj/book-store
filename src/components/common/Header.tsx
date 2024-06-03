@@ -6,9 +6,12 @@ import { Link } from "react-router-dom";
 import { Category } from "../../models/category.model";
 import { fetchCategory } from "../../api/category.api";
 import { useCategory } from "../../hooks/useCategory";
+import { useAuthStore } from "../../store/auth.store";
 
 const Header = () => {
   const { category } = useCategory();
+
+  const { isLoogedIn, storeLogin, storeLogout } = useAuthStore();
 
   return (
     <HeaderStyled>
@@ -29,6 +32,19 @@ const Header = () => {
         </ul>
       </nav>
       <nav className="auth">
+        {isLoogedIn && (
+          <ul>
+            <li>
+              <Link to={"/cart"}>장바구니</Link>
+            </li>
+            <li>
+              <Link to={"/orderList"}>주문 내역</Link>
+            </li>
+            <li>
+              <button onClick={storeLogout}>로그아웃</button>
+            </li>
+          </ul>
+        )}
         <ul>
           <li>
             <Link to="/login">
@@ -87,7 +103,11 @@ const HeaderStyled = styled.header`
       display: flex;
       gap: 16px;
       li {
-        a {
+        a,
+        button {
+          border: 0;
+          background: none;
+          cursor: pointer;
           font-size: 1rem;
           font-weight: 600;
           text-decoration: none;
