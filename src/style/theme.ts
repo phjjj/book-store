@@ -8,7 +8,9 @@ export type LayoutWidth = "large" | "medium" | "small";
 interface Theme {
   name: ThemeName;
   color: Record<ColorKey, string>;
-  heading: { [key in HeadingSize]: { fontSize: string } };
+  // record로 만들기
+  // heading을 Record로 만들기
+  heading: Record<HeadingSize, { fontSize: string }>;
   button: { [key in ButtonSize]: { fontSize: string; padding: string } };
   buttonSchema: { [key in ButtonSchema]: { color: string; backgroundColor: string } };
   borderRadius: {

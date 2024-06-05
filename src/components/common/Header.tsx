@@ -32,7 +32,7 @@ const Header = () => {
         </ul>
       </nav>
       <nav className="auth">
-        {isLoogedIn && (
+        {isLoogedIn ? (
           <ul>
             <li>
               <Link to={"/cart"}>장바구니</Link>
@@ -44,21 +44,22 @@ const Header = () => {
               <button onClick={storeLogout}>로그아웃</button>
             </li>
           </ul>
+        ) : (
+          <ul>
+            <li>
+              <Link to="/login">
+                <FaSignInAlt />
+                로그인
+              </Link>
+            </li>
+            <li>
+              <Link to="/signup">
+                <FaRegUser />
+                회원가입
+              </Link>
+            </li>
+          </ul>
         )}
-        <ul>
-          <li>
-            <Link to="/login">
-              <FaSignInAlt />
-              로그인
-            </Link>
-          </li>
-          <li>
-            <Link to="/signup">
-              <FaRegUser />
-              회원가입
-            </Link>
-          </li>
-        </ul>
       </nav>
     </HeaderStyled>
   );
