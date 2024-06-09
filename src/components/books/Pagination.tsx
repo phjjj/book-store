@@ -4,6 +4,7 @@ import { LIMIT } from "../constants/pagination";
 import Button from "../common/Button";
 import { useSearchParams } from "react-router-dom";
 import { QUERYSTRING } from "../constants/querystring";
+import React from "react";
 
 interface Props {
   pagination: IPagination;
@@ -28,14 +29,16 @@ function Pagination({ pagination }: Props) {
           {Array(pages)
             .fill(0)
             .map((_, index) => (
-              <li>
-                <Button
-                  size="small"
-                  schema={index + 1 === currentPage ? "primary" : "normal"}
-                  onClick={() => handelClickPage(index + 1)}>
-                  {index + 1}
-                </Button>
-              </li>
+              <React.Fragment key={index}>
+                <li>
+                  <Button
+                    size="small"
+                    schema={index + 1 === currentPage ? "primary" : "normal"}
+                    onClick={() => handelClickPage(index + 1)}>
+                    {index + 1}
+                  </Button>
+                </li>
+              </React.Fragment>
             ))}
         </ol>
       )}
