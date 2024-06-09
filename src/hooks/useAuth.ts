@@ -48,5 +48,11 @@ export const useAuth = () => {
     });
   };
 
-  return { userLogin, userSignup, userResetPassword, resetRequested, userResetRequest };
+  return {
+    userLogin,
+    userSignup,
+    userResetPassword,
+    resetRequested,
+    userResetRequest,
+  };
 };

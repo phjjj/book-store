@@ -8,12 +8,17 @@ import { formatDate, formatNumber } from "../utils/format";
 import EllipsisBox from "../components/common/EllipsisBox";
 import LikeButton from "../components/book/LikeButton";
 import AddToCart from "../components/book/AddToCart";
+import BookReview from "@/components/book/BookReview";
 
 const bookInfoList = [
   {
     label: "카테고리",
     key: "category_id",
-    filter: (book: IBookDetail) => <Link to={`/books?category_id=${book.category_id}`}>{book.categoryName}</Link>,
+    filter: (book: IBookDetail) => (
+      <Link to={`/books?category_id=${book.category_id}`}>
+        {book.categoryName}
+      </Link>
+    ),
   },
   {
     label: "포맷",
@@ -45,7 +50,7 @@ const bookInfoList = [
 
 function BookDetail() {
   const { bookId } = useParams();
-  const { book, likeToggle } = useBook(bookId);
+  const { book, likeToggle, reviews, addReview } = useBook(bookId);
 
   if (!book) {
     return null;
@@ -65,7 +70,11 @@ function BookDetail() {
           {bookInfoList.map((item) => (
             <dl key={item.key}>
               <dt>{item.label}</dt>
-              <dd>{item.filter ? item.filter(book) : book[item.key as keyof IBookDetail]}</dd>
+              <dd>
+                {item.filter
+                  ? item.filter(book)
+                  : book[item.key as keyof IBookDetail]}
+              </dd>
             </dl>
           ))}
           <p className="summary">{book.summary}</p>
@@ -90,6 +99,9 @@ function BookDetail() {
 
         <Title size="medium">목차</Title>
         <p className="index">{book.contents}</p>
+
+        <Title size="medium">리뷰</Title>
+        <BookReview onAdd={addReview} reviews={reviews} />
       </div>
     </BookDetailStyle>
   );
