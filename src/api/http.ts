@@ -42,3 +42,29 @@ export const createClient = (config?: AxiosRequestConfig) => {
 
 // 이렇게 할 경우 http 공통 모듈에서는 axiosInstance를 사용하게 된다. 와이리 어렵노
 export const httpclient = createClient();
+
+// 공통 요청 부분
+
+type ReuestMethod = "get" | "post" | "put" | "delete";
+
+export const requestHandler = async <T>(method: ReuestMethod, url: string, payload?: T) => {
+  let response;
+
+  switch (method) {
+    case "get":
+      response = await httpclient.get(url);
+      break;
+    case "post":
+      response = await httpclient.post(url, payload);
+      break;
+    case "put":
+      response = await httpclient.put(url, payload);
+      break;
+    case "delete":
+      response = await httpclient.delete(url);
+      break;
+  }
+  return response.data;
+};
+// <T>란? 제네릭 타입을 사용하겠다는 의미
+// 제네릭 타입은 함수를 정의할 때 타입을 확정하지 않고 나중에 사용할 때 확정하는 방법이다.

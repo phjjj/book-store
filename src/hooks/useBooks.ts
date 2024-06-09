@@ -14,6 +14,7 @@ export const useBooks = () => {
     totalCount: 0,
     currentPage: 1,
   });
+
   const [isEmpty, setIsEmpty] = useState(true);
 
   useEffect(() => {

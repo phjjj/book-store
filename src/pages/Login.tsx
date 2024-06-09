@@ -9,35 +9,23 @@ import { login, signup } from "../api/auth.api";
 import { useAlert } from "../hooks/useAlert";
 import { SignupStyle } from "./Signup";
 import { useAuthStore } from "../store/authStore";
-export interface SignupProps {
+import { useAuth } from "@/hooks/useAuth";
+export interface LoginProps {
   email: string;
   password: string;
 }
 
 const Login = () => {
-  const navigate = useNavigate();
-  const { showAlert } = useAlert();
-  const { isLoogedIn, storeLogin, storeLogout } = useAuthStore();
+  const { userLogin } = useAuth();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<SignupProps>();
+  } = useForm<LoginProps>();
 
-  const onSubmit = (data: SignupProps) => {
-    login(data)
-      .then((res) => {
-        const token = res.headers.authorization.split(" ")[1];
-        // 상태변화
-        storeLogin(token);
-        showAlert("로그인 완료되었습니다");
-        navigate("/");
-      })
-      .catch((err) => {
-        console.log(err);
-        showAlert("로그인 실패했습니다");
-      });
+  const onSubmit = (data: LoginProps) => {
+    userLogin(data);
   };
 
   return (

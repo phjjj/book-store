@@ -8,6 +8,7 @@ export const useOrders = () => {
 
   useEffect(() => {
     fetchOrders().then((orders) => {
+      console.log(orders);
       setOrders(orders);
     });
   }, []);
