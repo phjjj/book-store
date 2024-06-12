@@ -9,6 +9,9 @@ import EllipsisBox from "../components/common/EllipsisBox";
 import LikeButton from "../components/book/LikeButton";
 import AddToCart from "../components/book/AddToCart";
 import BookReview from "@/components/book/BookReview";
+import { Tabs, Tab } from "@/components/common/Tabs";
+import Modal from "@/components/common/Modal";
+import { useState } from "react";
 
 const bookInfoList = [
   {
@@ -52,6 +55,8 @@ function BookDetail() {
   const { bookId } = useParams();
   const { book, likeToggle, reviews, addReview } = useBook(bookId);
 
+  const [isImgOpen, setisImgOpen] = useState(false);
+
   if (!book) {
     return null;
   }
@@ -59,9 +64,12 @@ function BookDetail() {
   return (
     <BookDetailStyle>
       <header className="header">
-        <div className="img">
+        <div className="img" onClick={() => setisImgOpen(true)}>
           <img src={getImgSrc(book.img)} alt={book.title} />
         </div>
+        <Modal onClose={() => setisImgOpen(false)} isOpen={isImgOpen}>
+          <img src={getImgSrc(book.img)} alt={book.title} />
+        </Modal>
         <div className="info">
           <Title size="large" color="text">
             {book.title}
@@ -94,14 +102,22 @@ function BookDetail() {
         </div>
       </header>
       <div className="content">
-        <Title size="medium">상세 설명</Title>
-        <EllipsisBox linelimit={4}>{book.detail}</EllipsisBox>
+        <Tabs>
+          <Tab title="상세 설명">
+            <Title size="medium">상세 설명</Title>
+            <EllipsisBox linelimit={4}>{book.detail}</EllipsisBox>
+          </Tab>
 
-        <Title size="medium">목차</Title>
-        <p className="index">{book.contents}</p>
+          <Tab title="목차">
+            <Title size="medium">목차</Title>
+            <p className="index">{book.contents}</p>
+          </Tab>
 
-        <Title size="medium">리뷰</Title>
-        <BookReview onAdd={addReview} reviews={reviews} />
+          <Tab title="리뷰">
+            <Title size="medium">리뷰</Title>
+            <BookReview onAdd={addReview} reviews={reviews} />
+          </Tab>
+        </Tabs>
       </div>
     </BookDetailStyle>
   );
@@ -112,6 +128,10 @@ const BookDetailStyle = styled.div`
     align-items: start;
     gap: 24px;
     padding: 0 0 24px 0;
+
+    > div {
+      position: relative !important;
+    }
 
     .img {
       flex: 1;

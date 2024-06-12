@@ -4,19 +4,30 @@ import {
   BookReviewItem,
   BookReviewItemWrite,
 } from "../models/book.model";
-import { fetchBook, likeBook, unlikeBook } from "../api/books.api";
+import {
+  fetchBook,
+  likeBook,
+  unlikeBook,
+} from "../api/books.api";
 import { useAuthStore } from "../store/authStore";
 import { useAlert } from "./useAlert";
 import { addCart } from "../api/carts.api";
-import { addBookReview, fetchBookReview } from "@/api/review.api";
+import {
+  addBookReview,
+  fetchBookReview,
+} from "@/api/review.api";
+import { useToast } from "./useToast";
 
 export const useBook = (bookId: string | undefined) => {
   const [book, setBook] = useState<BookDetail | null>(null);
   const [cartAdded, setCartAdded] = useState(false);
-  const [reviews, setReviews] = useState<BookReviewItem[]>([]);
+  const [reviews, setReviews] = useState<BookReviewItem[]>(
+    []
+  );
 
   const { isLoogedIn } = useAuthStore();
   const { showAlert } = useAlert();
+  const { showToast } = useToast();
 
   const likeToggle = () => {
     if (!isLoogedIn) {
@@ -35,6 +46,7 @@ export const useBook = (bookId: string | undefined) => {
           liked: false,
           likes: book.likes - 1,
         });
+        showToast("좋아요가 취소되었습니다.");
       });
     } else {
       // 라이크 등록
@@ -46,6 +58,7 @@ export const useBook = (bookId: string | undefined) => {
           liked: true,
           likes: book.likes + 1,
         });
+        showToast("좋아요가 등록되었습니다.");
       });
     }
   };
@@ -80,11 +93,20 @@ export const useBook = (bookId: string | undefined) => {
     if (!book) return;
 
     addBookReview(book.id.toString(), data).then((res) => {
-      fetchBookReview(book.id.toString()).then((reviews) => {
-        setReviews(reviews);
-      });
+      fetchBookReview(book.id.toString()).then(
+        (reviews) => {
+          setReviews(reviews);
+        }
+      );
     });
   };
 
-  return { book, likeToggle, addToCart, cartAdded, reviews, addReview };
+  return {
+    book,
+    likeToggle,
+    addToCart,
+    cartAdded,
+    reviews,
+    addReview,
+  };
 };
