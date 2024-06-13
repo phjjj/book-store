@@ -9,9 +9,9 @@ interface Props {
   book: Book;
   view?: ViewMode;
 }
-function BooksItem({ book, view }: Props) {
+function BookItem({ book, view }: Props) {
   return (
-    <BooksItemStyle view={view}>
+    <BookItemStyle view={view}>
       <Link to={`/book/${book.id}`}>
         <div className="img">
           <img src={getImgSrc(book.img)} alt={book.title} />
@@ -27,10 +27,10 @@ function BooksItem({ book, view }: Props) {
           </div>
         </div>
       </Link>
-    </BooksItemStyle>
+    </BookItemStyle>
   );
 }
-const BooksItemStyle = styled.div<Pick<Props, "view">>`
+export const BookItemStyle = styled.div<Pick<Props, "view">>`
   a {
     display: flex;
     flex-direction: ${({ view }) => (view === "grid" ? "column" : "column")};
@@ -96,4 +96,4 @@ const BooksItemStyle = styled.div<Pick<Props, "view">>`
   }
 `;
 
-export default BooksItem;
+export default BookItem;

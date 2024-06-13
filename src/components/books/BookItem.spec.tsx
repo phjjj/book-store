@@ -1,6 +1,6 @@
 import { getByAltText, render } from "@testing-library/react";
 import { BookStoreThemeContextProvider } from "../../context/themeContext";
-import BooksItem from "./BooksItem";
+import BooksItem from "./BookItem";
 import { Book } from "../../models/book.model";
 
 const dummyBook: Book = {

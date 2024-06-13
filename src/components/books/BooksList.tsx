@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import BooksItem from "./BooksItem";
+import BooksItem from "./BookItem";
 import { Book } from "../../models/book.model";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -37,7 +37,8 @@ interface BooksListStyleProps {
 
 const BooksListStyle = styled.div<BooksListStyleProps>`
   display: grid;
-  grid-template-columns: ${({ view }) => (view === "grid" ? "repeat(4,1fr);" : "repaeat(1,1fr);")};
+  grid-template-columns: ${({ view }) =>
+    view === "grid" ? "repeat(4,1fr);" : "repaeat(1,1fr);"};
   gap: 24px;
 `;
 
